@@ -47,61 +47,6 @@ public class ItemController {
 
     @Resource
     ItemMapper itemMapper;
-    /**
-     * 弁番号より、弁を取得
-     *
-     * @param  vNo 検索キーワード
-     * @param  koujiId 工事ID
-     *
-     * @return  String 弁リスト
-     *
-     * */
-    @RequestMapping(value = "/getKikiSysIdByVNo", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-    public String getKikiSysIdByVNo( @RequestParam("vNo")String vNo,@RequestParam("koujiId")String koujiId,
-                                     HttpSession session, ModelMap modelMap) throws IOException {
-
-
-
-        //初期化
-        Map<String,String> indexPath = (Map<String,String>)session.getAttribute("indexPath");
-        if(indexPath==null) {
-            indexPath = luceneIndexService.generateLocalIndex();
-        }
-        session.setAttribute("indexPath",indexPath);
-        Directory indexValveFile=FSDirectory.open(new File(indexPath.get("indexValveFile")));
-        Directory indexKoujiFile=FSDirectory.open(new File(indexPath.get("indexKoujiFile")));
-
-
-        //IDから工事取得
-        Kouji kouji=new Kouji();
-        List<SearchResultObject> searchResultObjectsKJ=luceneIndexService.selectRecord(indexKoujiFile,"KJ"+koujiId+"End");
-        if(searchResultObjectsKJ.size()>0){
-            Kouji tmpkouji=new Kouji();
-            kouji=tmpkouji.toKouji(searchResultObjectsKJ.get(0).getBody());
-        }
-
-        System.out.println("検索文字："+vNo);
-
-        //弁番号で検索
-        List<Valve> valveList = new ArrayList<Valve>();
-        List<SearchResultObject> searchResultObjectsVA=luceneIndexService.selectRecord(indexValveFile,vNo);
-        System.out.println(searchResultObjectsVA.size());
-        if(searchResultObjectsVA.size()>0){
-            for(SearchResultObject searchResultObject:searchResultObjectsVA){
-                Valve tmpValve=new Valve();
-                Valve valve=tmpValve.toValve(searchResultObject.getBody());
-                if(valve.getLocationName().equals(kouji.getLocation())){
-                    valveList.add(valve);
-                }
-            }
-        }
-
-        modelMap.addAttribute("valveList",valveList);
-        modelMap.addAttribute("kouji",kouji);
-        session.setAttribute("kouji",kouji);
-        session.setAttribute("valveList",valveList);
-        return "/kouji/addValve";
-    }
 
     /**
      * 弁番号より、弁のJSONデータを取得

@@ -30,14 +30,9 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="/valdacHost/list/valveMult">弁検索</a></li>
                     <li><a href="/valdacHost/">工事検索</a></li>
-                    <li class="kengen-operation"><a href="/valdacHost/kouji/add">新規工事</a></li>
                     <li class="dropdown user user-menu">
-                        <%--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--%>
-                            <%--<i class="glyphicon glyphicon-user"></i>--%>
-                            <%--<span>お疲れ様,${user.username} </span>--%>
-                            <input type="hidden" id="username" value="${user.username}" />
-                            <input type="hidden" id="userKengen" value="${user.kengen}" />
-                        <%--</a>--%>
+                    <input type="hidden" id="username" value="${user.username}" />
+                    <input type="hidden" id="userKengen" value="${user.kengen}" />
                     </li>
                    <li><a href="/valdacHost/logout">ログアウト</a></li>
                 </ul>

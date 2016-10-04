@@ -117,7 +117,6 @@
                     <div class="col-md-12">
                         <ul class="nav nav-pills nav-stacked bookmarkUl">
                             <li role="presentation"><a href="/valdacHost/kouji/${kouji.id}"><i class="glyphicon glyphicon-cog"> 情報</i></a></li>
-                            <li role="presentation" class="kengen-operation"><a href="/valdacHost/kouji/${kouji.id}/instruct"><i class="glyphicon glyphicon-indent-left"> 指示</i></a></li>
                             <li role="presentation" class="currentBookmark"><a href="/valdacHost/kouji/${kouji.id}/kenan"><i class="glyphicon glyphicon-floppy-save"> 懸案</i></a></li>
                             <li role="presentation"><a href="/valdacHost/kouji/${kouji.id}/history"><i class="glyphicon glyphicon-time"> 履歴</i></a></li>
                             <li role="presentation"><a href="/valdacHost/kouji/${kouji.id}/image"><i class="glyphicon glyphicon-picture"> 図面</i></a></li>
@@ -140,7 +139,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="myModalLabel">懸案追加</h4>
+                <h4 class="modal-title" id="myModalLabel">懸案状況</h4>
             </div>
             <div class="modal-body">
                 <form id="kenanForm"  name="kenanForm" method="post">
@@ -226,7 +225,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" onclick="updateKenan()" class="btn btn-primary">保存</button>
+                <%--<button type="button" onclick="updateKenan()" class="btn btn-primary">保存</button>--%>
             </div>
         </div>
     </div>
@@ -265,136 +264,8 @@
             }
         }
     }
-    //日付チェック関数
-    function ckDate(datestr) {
-        // 正規表現による書式チェック
-        if(!datestr.match(/^\d{4}\/\d{2}\/\d{2}$/)){
-            return false;
-        }
-        var vYear = datestr.substr(0, 4) - 0;
-        var vMonth = datestr.substr(5, 2) - 1; // Javascriptは、0-11で表現
-        var vDay = datestr.substr(8, 2) - 0;
-        // 月,日の妥当性チェック
-        if(vMonth >= 0 && vMonth <= 11 && vDay >= 1 && vDay <= 31){
-            var vDt = new Date(vYear, vMonth, vDay);
-            if(isNaN(vDt)){
-                return false;
-            }else if(vDt.getFullYear() == vYear && vDt.getMonth() == vMonth && vDt.getDate() == vDay){
-                return true;
-            }else{
-                return false;
-            }
-        }else{
-            return false;
-        }
-    }
-    //日付　比較
-    function dateCompare(dateA,dateB) {
-        if(dateA<dateB){
-            return true;
-        }else{
-            return false;
-        }
-    }
-    //懸案更新
-    function updateKenan(){
-//        $("#kenanForm").submit();
-        var datas = $(".kenanForm-input");
-        var kenanFormArray = new Array();
-        for(var i = 0;i<datas.length;i++){
-            kenanFormArray[i] = datas[i].value;
-        }
-        //kenan　長さ判断
-        var tmpHakkenDate=document.kenanForm.hakkenDate.value;
-        var tmpTaisakuDate=document.kenanForm.taisakuDate.value;
-        //開始日付データがあるときのみ　チェックする
-        if(tmpHakkenDate.length>0){
-            if(tmpHakkenDate.length>10 || !ckDate(tmpHakkenDate)){
-                window.alert("発見日付を「yyyy/mm/dd」型式にしてください。");
-                return false;
-            }
-        }
-        //終了日付データがあるときのみ　チェックする
-        if(tmpTaisakuDate.length>0){
-            if(tmpTaisakuDate.length>10 || !ckDate(tmpTaisakuDate)){
-                window.alert("対策日付を「yyyy/mm/dd」型式にしてください。");
-                return false;
-            }
-        }
-        //開始日付と終了日付　両方があるときのみ　　チェックする
-        if((tmpHakkenDate.length>0) &&(tmpTaisakuDate.length>0)) {
-            if(dateCompare(tmpTaisakuDate,tmpHakkenDate)){
-                window.alert("対策日付は発見日付より小さいので、ご確認ください");
-                return false;
-            }
-        }
-        if(document.kenanForm.hakkenJyokyo.value.length>100 ){
-            window.alert("機器の事象を100文字以内にしてください。");
-            return false;
-        }
-        if(document.kenanForm.buhin.value.length>30 ){
-            window.alert("部品・箇所事象を30文字以内にしてください。");
-            return false;
-        }
-        if(document.kenanForm.gensyo.value.length>30 ){
-            window.alert("損傷の状況を30文字以内にしてください。");
-            return false;
-        }
-        if(document.kenanForm.youin.value.length>30 ){
-            window.alert("損傷の要因を30文字以内にしてください。");
-            return false;
-        }
-        if(document.kenanForm.taisaku.value.length>30 ){
-            window.alert("改善対策を30文字以内にしてください。");
-            return false;
-        }
-        if(document.kenanForm.syotiNaiyou.value.length>100 ){
-            window.alert("処置内容を100文字以内にしてください。");
-            return false;
-        }
-        //DBに保存する
-        var kenanFormJson = JSON.stringify(kenanFormArray);
-        $.post("/valdacHost/kenan/updateKenan",{"kenanForm":kenanFormJson},function(data) {
 
-            $.post("/valdacHost/kouji/kenanNowYear",{"koujiId":datas[1].value,"kikiSysId":datas[4].value},function(data){
-                        var kikiDatas = JSON.parse(data);
-                        $("#kenanList-now").html("");
-                        var tmpHTML = "";
-                        for(var i = 0; i < kikiDatas.length;i++){
-                            tmpHTML =tmpHTML+'<tr class="data-tr" id="'+kikiDatas[i].id+'">'+
-                                    '<td class="data-td">'+kikiDatas[i].taiouFlg+'</td>'+
-                                    '<td class="data-td">'+kikiDatas[i].hakkenDate+'</td>'+
-//                            '<td class="data-td">'+kikiDatas[i].taisakuDate+'</td>'+
-                                    '<td class="data-td">'+kikiDatas[i].hakkenJyokyo+'</td>'+
-                                    '<td class="data-td">'+kikiDatas[i].buhin+'</td>'+
-                                    '<td class="data-td">'+kikiDatas[i].gensyo+'</td>'+
-//                            '<td class="data-td">'+kikiDatas[i].youin+'</td>'+
-//                            '<td class="data-td">'+kikiDatas[i].taisaku+'</td>'+
-//                            '<td class="data-td">'+kikiDatas[i].syotiNaiyou+'</td>'+
-                                    '<td><button onclick="editKenanTest(this)" class="btn btn-xs btn-warning"><i class="fa fa-edit">詳細</i></button>&nbsp;&nbsp;' +
-                                    '<button onclick="deleteKenan(this)" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash">削除</i></button>'+
-                                    '</td>'+
-                                    '</tr>';
-                        }
-                        $('#kenanList-now').html(tmpHTML);
-                    }
-            );
-            $("#kenanModal").modal("hide");
-        });
 
-    }
-
-    function deleteKenan(obj){
-        var kenanTr = $(obj).parent().parent();
-        var kenanId = kenanTr[0].id;
-
-        $.post("/valdacHost/kenan/deleteKenanByKenanId",{"kenanId":kenanId},function(data) {
-            var delete_dom=document.getElementById(kenanId);
-            var delete_dom_parent=delete_dom.parentNode;
-            delete_dom_parent.removeChild(delete_dom);
-        });
-
-    }
 
     //弁Dにより、過去懸案リスト
     function chooseThisValveNowKenan(obj){

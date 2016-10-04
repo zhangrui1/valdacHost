@@ -68,34 +68,20 @@
                     <div class="box-body">
                         <div class="form-group">
 
-                            <div class="row">
-                                <!-- top frame -->
-                                <div class="col-md-2">
-                                    <!-- new image -->
-                                    <div class="btn btn-block btn-warning btn-file-block kengen-operation-readonly">
-                                        <span class="glyphicon glyphicon-picture"></span>
-                                        <span class="glyphicon-class">図面アップロード</span>
-                                        <input type="file" id="filePicker" name="attachment[]" multiple="multiple"><!-- id must be filePicker -->
-                                    </div>
-                                    <!--Add a button for the user to click to initiate auth sequence -->
-                                    <button id="authorize-button" style="visibility: hidden">メール認証</button><br>
-                                    <span class="authorize-message" id="authorize-message" style="color:#ff0000;visibility: hidden ">「メール認証」ボタンを押してから、図面をアップロードしてください</span>
-                                    </br></br>
-                                </div>
-
-                                <div class="col-md-10">
-                                    <div class="progress">
-                                        <div id="totalProgressbar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="300" style="width: 0%">
-                                            <span id="totalProgress"></span>
-                                        </div>
-                                    </div>
-                                    <div class="progress xs progress-striped active">
-                                        <div id="progressbar" class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
-                                            <span id="currentProgress"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <%--<div class="row">--%>
+                                <%--<div class="col-md-10">--%>
+                                    <%--<div class="progress">--%>
+                                        <%--<div id="totalProgressbar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="300" style="width: 0%">--%>
+                                            <%--<span id="totalProgress"></span>--%>
+                                        <%--</div>--%>
+                                    <%--</div>--%>
+                                    <%--<div class="progress xs progress-striped active">--%>
+                                        <%--<div id="progressbar" class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">--%>
+                                            <%--<span id="currentProgress"></span>--%>
+                                        <%--</div>--%>
+                                    <%--</div>--%>
+                                <%--</div>--%>
+                            <%--</div>--%>
                             <%--印刷ボタンなど--%>
                             <div class="row">
                                 <div class="col-md-2">
@@ -142,12 +128,8 @@
                                 <!-- image row -->
                                 <!-- image column  -->
                                 <div class="col-md-8" id="image-box-base">
-                                    <%--<embed id="previewImage" class="previewImage" src="" />--%>
                                     <div  id="koujiImg">
-                                        <%--<c:if test="${not empty firstReportImage}">--%>
-                                            <%--<img  id="previewImage" class="previewImage"  style="border:solid 1px silver" width="60%"  src="http://storage.googleapis.com/valdacHost/${firstReportImage.imagename}" width="600" />--%>
-                                            <img  id="previewImage" class="previewImage"  style="border:solid 1px silver" width="60%"  src="" width="600" />
-                                        <%--</c:if>--%>
+                                        <img  id="previewImage" class="previewImage"  style="border:solid 1px silver" width="60%"  src="" width="600" />
                                     </div>
                                     <div id="loading"> </div>
                                     <div id="previewImageName" style="display: none"></div>
@@ -170,17 +152,17 @@
                                         </div>
                                         <div class="panel-body">
                                             <%--<div class="form-group">--%>
-                                                <div class="row">
-                                                    <div class="col-md-10">
-                                                        <input type="text" name="table_search" id="table_search" class="input-sm pull-left" style="width: 150px;" placeholder="弁番号 Filter">
-                                                        <%--<div class="input-group-btn pull-left col-md-5">--%>
-                                                            <button class="btn btn-sm btn-default" id="table_search_btn" onclick="findBenByKeywords()"><i class="fa fa-search"></i></button>
-                                                        <%--</div>--%>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <button class="btn btn-default btn-sm kengen-operation  pull-right" onclick="openKanrenben()">+</button>
-                                                    </div>
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <input type="text" name="table_search" id="table_search" class="input-sm pull-left" style="width: 150px;" placeholder="弁番号 Filter">
+                                                    <%--<div class="input-group-btn pull-left col-md-5">--%>
+                                                    <button class="btn btn-sm btn-default" id="table_search_btn" onclick="findBenByKeywords()"><i class="fa fa-search"></i></button>
+                                                    <%--</div>--%>
                                                 </div>
+                                                <div class="col-md-2">
+                                                    <%--<button class="btn btn-default btn-sm kengen-operation  pull-right" onclick="openKanrenben()">+</button>--%>
+                                                </div>
+                                            </div>
                                             <%--</div>--%>
                                             <div class="form-group">
                                                 <div class="ben-table">
@@ -192,70 +174,20 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody id="current-select-ben" style="text-align: left">
-                                                            <c:forEach items="${firstValveImageList}" var="image">
-                                                                <tr>
-                                                                    <td>${image.vNo}</td>
-                                                                    <td>${image.benMeisyo}</td>
-                                                                </tr>
-                                                            </c:forEach>
+                                                        <c:forEach items="${firstValveImageList}" var="image">
+                                                            <tr>
+                                                                <td>${image.vNo}</td>
+                                                                <td>${image.benMeisyo}</td>
+                                                            </tr>
+                                                        </c:forEach>
                                                         </tbody>
                                                     </table>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group-sm">
-                                        <button class="btn btn-block btn-danger kengen-operation" onclick="removeImage(this)">画像を削除</button>
-                                    </div>
-
                                 </div>
                             </div>
-
-
-
-
-                            <%--<div class="row">--%>
-
-                                <%--<div class="col-md-12" style="text-align: center">--%>
-                                    <%--<!-- bottom frame -->--%>
-
-                                    <%--<div class="row">--%>
-                                        <%--<div class="col-md-12" id="previewImageDiv">--%>
-                                            <%--<hr/>--%>
-
-                                            <%--<div class="row" id="imageList">--%>
-                                                <%--<div class="col-md-1">--%>
-                                                    <%--<button class="btn btn-default btn-block image-page-btn" onclick="turnToPreviousPage()"><</button>--%>
-                                                <%--</div>--%>
-                                                <%--<div class="col-md-10">--%>
-                                                    <%--<div class="row" id="thumbnail-imageList">--%>
-                                                    <%--<c:forEach items="${imageList}" var="image">--%>
-                                                        <%--<div id="${image.imagename}" class="col-md-2 image-div" >--%>
-                                                            <%--<div class="row thumbnail-object">--%>
-                                                                <%--<div class="col-md-12 thumbnail-img">--%>
-                                                                    <%--<img src="http://storage.googleapis.com/valdacHost/${image.imagename}" onclick="changeImage(this)" alt="..." style="cursor:pointer;height: 100px">--%>
-                                                                <%--</div>--%>
-                                                            <%--</div>--%>
-                                                        <%--</div>--%>
-                                                    <%--</c:forEach>--%>
-
-                                                    <%--</div>--%>
-                                                <%--</div>--%>
-                                                <%--<div class="col-md-1">--%>
-                                                    <%--<button class="btn btn-default btn-block image-page-btn" onclick="turnToNextPage(${currentSet})">></button>--%>
-                                                <%--</div>--%>
-                                            <%--</div>--%>
-                                        <%--</div>--%>
-                                    <%--</div>--%>
-
-                                <%--</div>--%>
-                            <%--</div>--%>
-                            <%--<div class="row">--%>
-                                <%--<div class="col-md-8"></div>--%>
-                                <%--<div class="col-md-4">--%>
-                                    <%--<span id="currentSet">${currentSet}</span> / <span id="totalSet">${totalSet}</span><input type="text" id="setNum" class="input-sm"/><button class="btn btn-default btn-sm" onclick="turnToThisSet()">行く</button>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
                         </div>
                     </div>
                 </div>
@@ -267,7 +199,6 @@
                     <div class="col-md-12">
                         <ul class="nav nav-pills nav-stacked bookmarkUl">
                             <li role="presentation"><a href="/valdacHost/kouji/${kouji.id}"><i class="glyphicon glyphicon-cog"> 情報</i></a></li>
-                            <li role="presentation" class="kengen-operation"><a href="/valdacHost/kouji/${kouji.id}/instruct"><i class="glyphicon glyphicon-indent-left"> 指示</i></a></li>
                             <li role="presentation"><a href="/valdacHost/kouji/${kouji.id}/kenan"><i class="glyphicon glyphicon-floppy-save"> 懸案</i></a></li>
                             <li role="presentation"><a href="/valdacHost/kouji/${kouji.id}/history"><i class="glyphicon glyphicon-time"> 履歴</i></a></li>
                             <li role="presentation" class="currentBookmark"><a href="/valdacHost/kouji/${kouji.id}/image"><i class="glyphicon glyphicon-picture"> 図面</i></a></li>
@@ -340,7 +271,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
-                    <button type="button" class="btn btn-success" onclick="submitKanrenben()">確定</button>
+                    <%--<button type="button" class="btn btn-success" onclick="submitKanrenben()">確定</button>--%>
                 </div>
             </div>
         </div>
@@ -348,6 +279,11 @@
 </body>
 
 <script type="text/javascript">
+//図面用
+var BUCKET = 'valdac-construction-aisa'; //テストサーバ用
+//var BUCKET = 'valdac-construction-asia'; //本番
+
+
     //図面回転用
     valueKouji=0;//kouji 用
     function routeImageForKouji(type){
@@ -405,28 +341,6 @@
         });
 
         var koujiId = document.getElementById("koujiId").value;
-        //画像名を取得
-//        var imagename=document.getElementById("previewImage").src;
-//        imagename=imagename.replace("http://storage.googleapis.com/valdacHost/","");
-
-//        $.post("/valdacHost/image/getReportimageKikisystemByKoujiAndImagename",
-//                {"koujiId":koujiId,
-//                    "imagename":imagename},
-//                function(data){
-//                    var items = JSON.parse(data);
-//                    //current-select-ben
-//                    var htmlContent = "";
-//                    console.log("first imagename="+imagename);
-//                    for(var i = 0;i<items.length;i++){
-//                        htmlContent = htmlContent +
-//                                "<tr>" +
-//                                "<td>" + items[i].vNo + "</td>" +
-//                                "<td>" + items[i].benMeisyo + "</td>" +
-//                                "</tr>";
-//                    }
-//                    $("#current-select-ben").html(htmlContent);
-//
-//                });
 
         //弁選択
         $('.valve-item').mouseup(function(obj){
@@ -498,152 +412,7 @@
         }
     }
 
-    function selectValve(obj){
-        if(!obj.checked) {
-            $('#selected-' + obj.value).show();
-        } else {
-            $('#selected-' + obj.value).hide();
-        }
-        //全選択かどうか チェックする
-        var booleanAllCheck=true;//全選択かどうか
-        var allCheckboxTmp = document.getElementById( "allCheckbox" );
-        var selectedList = $('.selected-ben');
-        for(var i = 0;i<selectedList.length;i++){
-            var tmp=selectedList[i].id;
-            var element =document.getElementById(tmp);
-            var style =element.style.display;
-            console.log("tmp="+tmp+"   ;style ="+style );
-            if(style=="none"){
-                //選択がない場合
-                booleanAllCheck = false;
-            }
-        }
-        if(booleanAllCheck){
-            allCheckboxTmp.checked = true;
-        }else{
-            allCheckboxTmp.checked = false;
-        }
-    }
 
-    function unselect(obj){
-        var selectedId = new String(obj.id);
-        var id = selectedId.split('-')[1];
-        $('#select-'+id).prop('checked', false);
-        var tr=$('#'+id).parent();
-        $(tr).removeClass("bg-light-blue-gradient");
-        $(obj).hide();
-        //全選択を外す
-        var allCheckboxTmp = document.getElementById( "allCheckbox" );
-        allCheckboxTmp.checked = false;
-    }
-
-    function submitKanrenben(){
-        var selectedList = $('.select-ben:checked');
-        var selectedIdList = "";
-        for(var i = 0;i<selectedList.length;i++){
-            if(selectedIdList.length-1 == i) {
-                selectedIdList = selectedIdList + selectedList[i].value;
-            } else {
-                selectedIdList = selectedIdList + selectedList[i].value + ",";
-            }
-        }
-        var koujiId = document.getElementById("koujiId").value;
-        var imagename=document.getElementById('previewImageName').value;
-        imagename=imagename.replace("http://storage.googleapis.com/"+BUCKET+"/","");
-        $.post("/valdacHost/image/updateImageKikisystem",{"koujiId":koujiId,"imagename":imagename,"selectedIdList":selectedIdList},function(data){
-
-            $.post("/valdacHost/image/getReportimageKikisystemByKoujiAndImagename",
-                    {"koujiId":koujiId,
-                        "imagename":imagename},
-                    function(data){
-                        var items = JSON.parse(data);
-                        //current-select-ben
-                        var htmlContent = "";
-                        for(var i = 0;i<items.length;i++){
-                            htmlContent = htmlContent +
-                                    "<tr>" +
-                                    "<td>" + items[i].vNo + "</td>" +
-                                    "<td>" + items[i].benMeisyo + "</td>" +
-                                    "</tr>";
-                        }
-                        $("#current-select-ben").html(htmlContent);
-
-                    });
-
-            $("#myModal").modal("hide");
-//            $.post("/valdacHost/image/saveImageKikisystem",{"koujiId":koujiId,"imagename":imagename,"selectedIdList":selectedIdList},function(data){});
-        });
-    }
-
-    function openKanrenben(){
-
-        $('.select-ben').prop('checked',false);
-        $('.selected-ben').hide();
-
-        //get valve list
-        var koujiId = document.getElementById("koujiId").value;
-        var imagename=document.getElementById('previewImageName').value;
-        imagename=imagename.replace("http://storage.googleapis.com/"+BUCKET+"/","");
-        console.log("openKanrenben imagename="+imagename);
-        if(koujiId.length < 1 || imagename.length < 1){
-            return false;
-        } else {
-            $.post("/valdacHost/image/getReportimageKikisystemByKoujiAndImagename",
-                    {"koujiId":koujiId,
-                        "imagename": imagename},
-                    function (data) {
-                        var items = JSON.parse(data);
-                        //current-select-ben
-                        for (var i = 0; i < items.length; i++) {
-                            $('#selected-' + items[i].kikiSysId).show();
-                            $('#select-' + items[i].kikiSysId).prop('checked', true);
-                        }
-                    })
-            $("#myModal").modal("show");
-        }
-    }
-
-    function removeImage(){
-        var imagename=document.getElementById('previewImageName').value;
-        imagename=imagename.replace("http://storage.googleapis.com/"+BUCKET+"/","");
-        //delete session
-        $.post("/valdacHost/image/deleteByImagename",
-                {"object":imagename},
-                function(data){
-                    object = imagename;
-                    var request = gapi.client.storage.objects.delete({
-                        'bucket': BUCKET,
-                        'object': object
-                    });
-                    request.execute(function(resp) {
-                        object = "";
-                        //index　図面数を更新
-                        var setNum = parseInt(document.getElementById("currentSet").innerHTML);
-                        var totalSet = parseInt(document.getElementById("totalSet").innerHTML);
-                        setNum=setNum-1;
-                        totalSet=totalSet-1;
-                        if(totalSet>0&&setNum==0){
-                            setNum=1;
-                            var tmpNum=setNum-1;
-                            turnToSet(tmpNum);
-                        }else if(totalSet>0&&setNum>0){
-                            var tmpNum=setNum-1;
-                            turnToSet(tmpNum);
-                        }else if(totalSet==0){
-                            document.getElementById('previewImage').src="";
-                        }
-                        document.getElementById("currentSet").innerHTML=setNum;
-                        document.getElementById("totalSet").innerHTML=totalSet;
-                        turnToSet(setNum);
-                        updatePage("");
-                    });
-                    //delete database
-                    console.log("imagename="+imagename);
-                    var koujiId = document.getElementById("koujiId").value;
-                    $.post("/valdacHost/image/deleteDatabaseByImagename",
-                            {"object":imagename,"koujiId":koujiId},function(data){})
-                });
-    }
 
     function updatePage(imagename){
         $.post("/valdacHost/image/updatePageNumber",{"imagename":imagename},function(data){
@@ -842,43 +611,7 @@
                     });
         }
     }
-//
-//    function changeImage(obj){
-//        $("#operate-panel").css({"opacity": "0"});
-//        $(".imagesyu").val("");
-////        document.getElementById("previewImage").src=obj.src;
-//
-//        document.getElementById("previewImage").innerHTML='<img src="'+obj.src+'" width="600px" />';
-//        document.getElementById("original-link").href=obj.src;
-//        var link = new String(obj.src);
-//        var currentObject = link.split("http://storage.googleapis.com/valdacHost/")[1];
-//        object = currentObject;
-//        document.getElementById("currentImageObject").value = currentObject;
-//        $.post("/valdacHost/image/getImageByImagename",{"imagename":currentObject},function(data){
-//            var item = JSON.parse(data);
-//            $("#currentSyu").html(item.imagesyu);
-//        });
-//        $.post("/valdacHost/image/getReportimageKikisystemByKoujiAndImagename",
-//                {"koujiId":document.getElementById("koujiId").value,
-//                "imagename":currentObject},
-//                function(data){
-//                    var items = JSON.parse(data);
-//                    //current-select-ben
-//                    var htmlContent = "";
-//                    for(var i = 0;i<items.length;i++){
-//                        htmlContent = htmlContent +
-//                                "<tr>" +
-//                                "<td>" + items[i].vNo + "</td>" +
-//                                "<td>" + items[i].benMeisyo + "</td>" +
-//                                "</tr>";
-//                    }
-//                    $("#current-select-ben").html(htmlContent);
-//                    $("#table_search").val("");
-//                    $("#operate-panel").css({"opacity": "1"});
-//                    updatePage(currentObject);
-//                })
-//
-//    }
+
 
     function showDelete(obj){
         var content = $(obj).find(".thumbnail-content")[0];
@@ -923,23 +656,6 @@
             }
     }
 
-    //関連弁追加画面の検索
-    function findBenByKeywordsInKanrenBen(){
-        var keyword = $("#table_search_kanren").val();
-        var trs=document.getElementById("Allben");
-        var myTr=trs.getElementsByTagName("tr");
-        for(var i = 1;i<myTr.length;i++){
-            var myTd=myTr[i].getElementsByTagName("td");
-            $(myTr[i]).hide();
-            for(var j = 0;j<myTd.length;j++){
-                var temp=myTd[j].innerHTML;
-                if(temp.match(keyword)){
-                    $(myTr[i]).show();
-                    break;
-                }
-            }
-        }
-    }
 
     //関連弁追加画面の検索
     function changeNumPage(){
@@ -1005,298 +721,4 @@
 
     };
 </script>
-
-<!-- Google Sotrage -->
-<script type="text/javascript">
-var PROJECT = 'power-science-20140719001';
-
-//サーバー用 clientId
-var clientId = '13771198627-plrtfkpr8r96ccev7n6ip1f1ublte6n1.apps.googleusercontent.com';
-//開発用 clientId
-//var clientId = '13771198627-bpo57i2unf6dkbna2jo7ehljin6aseoa.apps.googleusercontent.com';
-//サーバー用 api key
-var apiKey = 'AIzaSyAG-h3cIM_SsO0fE_gA8lAIl2x71zdC6NA';
-//開発用 api key
-//var apiKey = 'AIzaSyCnoDTW4BQB-DKKf9YWd9AaoEFYKeN6Esw';
-
-var scopes = 'https://www.googleapis.com/auth/devstorage.full_control';
-var API_VERSION = 'v1';
-//var BUCKET = 'valdac-construction-aisa';//テストサーバ用
-var BUCKET = 'valdac-construction-asia'; //本番
-var object = "";
-
-var GROUP =
-        'group-00b4903a9744bffac3b0196718449ddbaf5cbc5a1ebfff7783546ad6f13e63f6';
-var ENTITY = 'allUsers';
-var ROLE = 'OWNER';
-var ROLE_OBJECT = 'OWNER';
-
-
-//multiple file upload control flag
-var uploadLoopStatus = 0;
-var fileCount = 0;
-var timer;
-function insertObject(event) {
-    progressBarController(0);
-    //********************************************************
-//    $("#totalProgress").html(event.target.files.length+"枚画像をアップロード中です。。。");
-    var errorCount=0;//アップできなかった図面数
-    var errorFileName="";
-
-    timer = setInterval(function(){
-        if(fileCount < event.target.files.length){
-            var Imagenum=fileCount+1;
-            $("#totalProgress").html(event.target.files.length+"枚画像をアップロード中です。。。"+"   第"+Imagenum+"枚目です");
-            if(uploadLoopStatus == 0){
-                uploadLoopStatus = 1;
-
-                try {
-                    var fileData = event.target.files[fileCount];
-                }
-                catch (e) {
-                    console.log(e);
-                }
-                //image type
-                var imagetype=["jpg","jpeg","pdf","gif","png","bmp"];
-                var fileTypeOld = new String(fileData.name);
-                var fileType = fileTypeOld.split('.');
-                var  fileTypeName=fileType[fileType.length - 1]
-                console.log("fileTypeName="+fileTypeName);
-                if(imagetype.indexOf(fileTypeName.toLowerCase())>=0){
-                    console.log("存在する");
-                    // progressbar
-                    progressBarController(10);
-                    const boundary = '-------314159265358979323846';
-                    const delimiter = "\r\n--" + boundary + "\r\n";
-                    const close_delim = "\r\n--" + boundary + "--";
-                    var reader = new FileReader();
-                    reader.readAsBinaryString(fileData);
-                    reader.onload = function (e) {
-                        var fileTypeOld = new String(fileData.name);
-                        var fileType = fileTypeOld.split('.');
-                        console.log("fileType="+fileType);
-
-                        //make file name
-                        var d = new Date();
-                        var vYear = d.getFullYear();
-                        var vMon = d.getMonth() + 1;
-                        var vDay = d.getDate();
-                        if(vMon < 10){
-                            vMon = "0" + vMon;
-                        }
-                        if (vDay < 10) {
-                            vDay = "0" + vDay;
-                        }
-                        var todayDate = vYear + "" + vMon + "" + vDay;
-                        var oldfilename= fileType[0].replace(/\s|　/g,"");
-                        var objectAndName = todayDate + "/" +oldfilename+"_"+ d.getTime() + "." + fileType[fileType.length - 1];
-//                    var objectAndName = todayDate + "/"+fileTypeOld;
-                        //make parameters
-                        progressBarController(30);
-                        var contentType = fileData.type || 'application/octet-stream';
-                        var metadata = {
-                            'name': objectAndName,
-                            'mimeType': contentType
-                        };
-                        var base64Data = btoa(reader.result);
-                        var multipartRequestBody =
-                                delimiter +
-                                'Content-Type: application/json\r\n\r\n' +
-                                JSON.stringify(metadata) +
-                                delimiter +
-                                'Content-Type: ' + contentType + '\r\n' +
-                                'Content-Transfer-Encoding: base64\r\n' +
-                                '\r\n' +
-                                base64Data +
-                                close_delim;
-                        //Note: gapi.client.storage.objects.insert() can only insert
-                        //small objects (under 64k) so to support larger file sizes
-                        //we're using the generic HTTP request method gapi.client.request()
-                        var request = gapi.client.request({
-                            'path': '/upload/storage/v1/b/' + BUCKET + '/o',
-                            'method': 'POST',
-                            'params': {'uploadType': 'multipart'},
-                            'headers': {
-                                'Content-Type': 'multipart/mixed; boundary="' + boundary + '"'
-                            },
-                            'body': multipartRequestBody});
-                        progressBarController(60);
-                        try {
-                            //Execute the insert object request
-                            executeRequest(request, 'insertObject');
-                            //Store the name of the inserted object
-                            object = objectAndName;
-                        }
-                        catch (e) {
-                            alert('An error has occurred: ' + e.message);
-                        }
-                    }
-                }else{
-                    errorFileName=errorFileName+fileTypeOld+";\n";
-                    errorCount=errorCount+1;
-                    progressBarController(0);
-                    uploadLoopStatus = 2;
-                }
-            } else if(uploadLoopStatus == 1){
-            } else if(uploadLoopStatus == 2){
-                fileCount++;
-                totalProgressBarController(fileCount,event.target.files.length);
-                uploadLoopStatus = 0;
-            }
-        } else {
-            console.log('over');
-            if(errorCount>0){
-                console.log('下記の拡張子の図面がアップできませんでした\n'+errorFileName);
-                alert("下記の拡張子の図面がアップできませんでした\n"+errorFileName);
-            }else{
-                alert("図面全部アップしました");
-            }
-
-            //全て画像アップ後、データ初期化
-            uploadLoopStatus = 0;
-            fileCount = 0;
-            clearInterval(timer);
-            location.reload();
-        }
-    },1000)
-}
-
-function uploadFilesAction(event){
-
-}
-
-/**
- * Google Cloud Storage API request to insert an Access Control List into
- * your Google Cloud Storage object.
- */
-function insertObjectAccessControls() {
-    resource = {
-        'entity': ENTITY,
-        'role': ROLE_OBJECT
-    };
-    var request = gapi.client.storage.objectAccessControls.insert({
-        'bucket': BUCKET,
-        'object': object,
-        'resource': resource
-    });
-//    executeRequest(request, 'insertObjectAccessControls');
-    executeRequestInsert(object);
-}
-/**
- * Google Cloud Storage API request to delete a Google Cloud Storage object.
- */
-function deleteObject() {
-    var request = gapi.client.storage.objects.delete({
-        'bucket': BUCKET,
-        'object': object
-    });
-    executeRequest(request, 'deleteObject');
-}
-function updateApiResultEntry(apiRequestName) {
-    listChildren = document.getElementById('main-content')
-            .childNodes;
-    if (listChildren.length > 1) {
-        listChildren[1].parentNode.removeChild(listChildren[1]);
-    }
-    if (apiRequestName != 'null') {
-        window[apiRequestName].apply(this);
-    }
-}
-function executeRequestInsert(objectName) {
-        var totalPage = Number($("#totalPage").html());
-        totalPage = totalPage + 1;
-        $("#totalPage").html(totalPage);
-
-        progressBarController(100);
-        //update session
-        var koujiId = document.getElementById("koujiId").value;
-        $.post("/valdacHost/image/updateImageByImagePath",{"object":objectName,"koujiId":koujiId},function(data){
-            progressBarController(0);
-            uploadLoopStatus = 2;
-        });
-        //update database
-        $.post("/valdacHost/image/saveImageByImagePath",{"object":objectName,"koujiId":koujiId},function(data){
-            //図面件数を更新
-            var totalSet = parseInt(document.getElementById("totalSet").innerHTML);
-            totalSet=totalSet+1;
-            document.getElementById("totalSet").innerHTML=totalSet;
-            document.getElementById("currentSet").innerHTML=totalSet;
-            //最新の図面に移動
-            document.getElementById('previewImage').src="http://storage.googleapis.com/"+BUCKET+objectName;
-            //アップした図面を表示する
-            loadImg(objectName);
-            document.getElementById('previewImageName').value=objectName;
-        });
-}
-function executeRequest(request, apiRequestName) {
-    request.execute(function(resp) {
-        if (apiRequestName != 'insertObject') {
-        } else {
-            progressBarController(80);
-            insertObjectAccessControls();
-        }
-    });
-}
-/**
- * Set required API keys and check authentication status.
- */
-function handleClientLoad() {
-    gapi.client.setApiKey(apiKey);
-    window.setTimeout(checkAuth, 1);
-}
-/**
- * Authorize Google Cloud Storage API.
- */
-function checkAuth() {
-    gapi.auth.authorize({
-        client_id: clientId,
-        scope: scopes,
-        immediate: true
-    }, handleAuthResult);
-}
-/**
- * Handle authorization.
- */
-function handleAuthResult(authResult) {
-    var authorizeButton = document.getElementById('authorize-button');
-    var authorizeMessage=document.getElementById('authorize-message');
-    if (authResult && !authResult.error) {
-        authorizeButton.style.visibility = 'hidden';
-        authorizeMessage.style.visibility="hidden";
-        initializeApi();
-        filePicker.onchange = insertObject;
-    } else {
-        authorizeButton.style.visibility = '';
-        authorizeMessage.style.visibility='';
-        authorizeButton.onclick = handleAuthClick;
-    }
-}
-/**
- * Handle authorization click event.
- */
-function handleAuthClick(event) {
-    gapi.auth.authorize({
-        client_id: clientId,
-        scope: scopes,
-        immediate: false
-    }, handleAuthResult);
-    return false;
-}
-/**
- * Load Google Cloud Storage API v1beta12.
- */
-function initializeApi() {
-    gapi.client.load('storage', API_VERSION);
-}
-/**
- * Driver for sample application.
- */
-$(window)
-        .bind('load', function() {
-//            addSelectionSwitchingListeners();
-            handleClientLoad();
-        });
-
-</script>
-
 </html>

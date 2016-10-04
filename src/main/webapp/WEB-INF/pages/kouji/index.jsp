@@ -55,7 +55,7 @@
                             <h3 class="panel-title">工事情報</h3>
                         </div>
 
-                        <form action="/valdacHost/kouji/updateKouji">
+                        <form>
                             <input type="hidden" name="id" value="${kouji.id}"/>
                             <div class="panel-body">
                                 <div class="row form-group">
@@ -193,7 +193,6 @@
                                         <th>点検内容</th>
                                         <th>点検結果</th>
                                         <th>特記事項</th>
-                                        <%--<th>操作</th>--%>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -210,40 +209,6 @@
                                         <td>${tenkenRirekiUtil.tenkennaiyo}</td>
                                         <td>${tenkenRirekiUtil.tenkenkekka}</td>
                                         <td>${tenkenRirekiUtil.tenkenBikou}</td>
-                                        <%--<td>--%>
-                                            <%--<select  id="tenkenRank" class="form-control tenken-select">--%>
-                                                <%--<option  <c:if test="${(tenkenRirekiUtil.tenkenRank eq '')}">selected</c:if>></option>--%>
-                                                <%--<option  <c:if test="${(tenkenRirekiUtil.tenkenRank eq 'A')}">selected</c:if>>A</option>--%>
-                                                <%--<option  <c:if test="${(tenkenRirekiUtil.tenkenRank eq 'B')}">selected</c:if>>B</option>--%>
-                                                <%--<option  <c:if test="${(tenkenRirekiUtil.tenkenRank eq 'C')}">selected</c:if>>C</option>--%>
-                                                <%--<option  <c:if test="${(tenkenRirekiUtil.tenkenRank eq 'D')}">selected</c:if>>D</option>--%>
-                                                <%--<option  <c:if test="${(tenkenRirekiUtil.tenkenRank eq 'E')}">selected</c:if>>E</option>--%>
-                                            <%--</select>--%>
-                                        <%--</td>--%>
-                                        <%--<td>--%>
-                                            <%--<input type="text" id="${tenkenRirekiUtil.id}-naiyo" class="form-control input-xs" style="height:25px" placeholder="点検内容"  value="${tenkenRirekiUtil.tenkennaiyo}" />--%>
-                                        <%--</td>--%>
-                                        <%--<td>--%>
-                                            <%--&lt;%&ndash;<input type="text" class="form-control input-xs" style="height:25px" placeholder="点検結果" onblur="saveTenkenkekka(this)" value="${tenkenRirekiUtil.tenkenkekka}" />&ndash;%&gt;--%>
-                                            <%--<select id="tenkenkekka"  class="form-control kekka-select">--%>
-                                                <%--<option  <c:if test="${(tenkenRirekiUtil.tenkenkekka eq '')}">selected</c:if>></option>--%>
-                                                <%--<option  <c:if test="${(tenkenRirekiUtil.tenkenkekka eq 'A')}">selected</c:if>>A</option>--%>
-                                                <%--<option  <c:if test="${(tenkenRirekiUtil.tenkenkekka eq 'B')}">selected</c:if>>B</option>--%>
-                                                <%--<option  <c:if test="${(tenkenRirekiUtil.tenkenkekka eq 'C')}">selected</c:if>>C</option>--%>
-                                                <%--<option  <c:if test="${(tenkenRirekiUtil.tenkenkekka eq 'D')}">selected</c:if>>D</option>--%>
-                                                <%--<option  <c:if test="${(tenkenRirekiUtil.tenkenkekka eq 'E')}">selected</c:if>>E</option>--%>
-                                                <%--<option  <c:if test="${(tenkenRirekiUtil.tenkenkekka eq 'F')}">selected</c:if>>F</option>--%>
-                                                <%--<option  <c:if test="${(tenkenRirekiUtil.tenkenkekka eq 'G')}">selected</c:if>>G</option>--%>
-                                                <%--<option  <c:if test="${(tenkenRirekiUtil.tenkenkekka eq 'Y')}">selected</c:if>>Y</option>--%>
-                                                <%--<option  <c:if test="${(tenkenRirekiUtil.tenkenkekka eq 'Z')}">selected</c:if>>Z</option>--%>
-                                            <%--</select>--%>
-                                        <%--</td>--%>
-                                        <%--<td>--%>
-                                            <%--<input type="text" class="form-control input-xs" style="height:25px" placeholder="特記事項" value="${tenkenRirekiUtil.tenkenBikou}" />--%>
-                                        <%--</td>--%>
-                                        <%--<td>--%>
-                                        <%--<button class="btn btn-xs btn-warning kengen-operation" onclick="openKenan(this)">新規懸案</button></td>--%>
-                                        <%--</tr>--%>
                                     </c:forEach>
                                     </tbody>
                                 </table>
@@ -266,7 +231,6 @@
                         <div class="col-md-12">
                             <ul class="nav nav-pills nav-stacked bookmarkUl">
                                 <li role="presentation" class="currentBookmark"><a href="/valdacHost/kouji/${kouji.id}"><i class="glyphicon glyphicon-cog"> 情報</i></a></li>
-                                <li role="presentation" class="kengen-operation"><a href="/valdacHost/kouji/${kouji.id}/instruct"><i class="glyphicon glyphicon-indent-left"> 指示</i></a></li>
                                 <li role="presentation"><a href="/valdacHost/kouji/${kouji.id}/kenan"><i class="glyphicon glyphicon-floppy-save"> 懸案</i></a></li>
                                 <li role="presentation"><a href="/valdacHost/kouji/${kouji.id}/history"><i class="glyphicon glyphicon-time"> 履歴</i></a></li>
                                 <li role="presentation"><a href="/valdacHost/kouji/${kouji.id}/image"><i class="glyphicon glyphicon-picture"> 図面</i></a></li>
@@ -280,107 +244,6 @@
         </section>
     </div>
 </body>
-
-<!-- Modal -->
-<div class="modal fade" id="kenanModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="myModalLabel">懸案追加</h4>
-            </div>
-            <div class="modal-body">
-                <form id="kenanForm"  name="kenanForm" method="post">
-
-                    <div class="row form-group">
-                        <div class="col-md-12">
-                            <h3>
-                                <i class="glyphicon glyphicon-wrench"> <span class="kenanForm-span" id="koujiInfo"></span></i>
-                            </h3>
-                        </div>
-                    </div>
-
-                    <div class="row form-group">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-10">
-                            <span class="kenanForm-span" id="kikisysInfo"></span>
-                        </div>
-                    </div>
-                    <input type="hidden" id="kenanId" class="kenanForm-input" name="id" value="" />
-                    <input type="hidden" id="kenanKoujiId" class="kenanForm-input" name="koujiId" value="" />
-                    <input type="hidden" id="kenanKoujirelationId" class="kenanForm-input" name="koujirelationId" value="" />
-                    <input type="hidden" id="kenanKikiId" class="kenanForm-input" name="kikiId" value="" />
-                    <input type="hidden" id="kenanKikiSystemId" class="kenanForm-input" name="kikisysId" value="" />
-
-                    <div class="panel panel-danger">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">懸案状況</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class="row form-group">
-                                <div class="col-md-2">対応フラグ：</div>
-                                <div class="col-md-4">
-                                    <select  name="taiouFlg" id="taiouFlg" class="form-control kenanForm-input">
-                                        <option>未対応</option>
-                                        <option>対応</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col-md-2">発見日付：</div>
-                                <div class="col-md-4">
-                                    <input type="text" name="hakkenDate" id="hakkenDate" class="form-control kenanForm-input"  placeholder="例：yyyy/mm/dd" value="" />
-                                </div>
-                                <div class="col-md-2">対策日付：</div>
-                                <div class="col-md-4">
-                                    <input type="text" name="taisakuDate" id="taisakuDate" class="form-control kenanForm-input" placeholder="例：yyyy/mm/dd"  value="" />
-                                </div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col-md-2">機器の事象：</div>
-                                <div class="col-md-4">
-                                    <input type="text" name="hakkenJyokyo" id="hakkenJyokyo" class="form-control kenanForm-input"  value="" />
-                                </div>
-                                <div class="col-md-2">部品・箇所： </div>
-                                <div class="col-md-4">
-                                    <input type="text" name="buhin" id="buhin" class="form-control kenanForm-input"  value="" />
-                                </div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col-md-2">損傷の状況： </div>
-                                <div class="col-md-4">
-                                    <input type="text" name="gensyo" id="gensyo" class="form-control kenanForm-input"  value=""/>
-                                </div>
-                                <div class="col-md-2">損傷の要因： </div>
-                                <div class="col-md-4">
-                                    <input type="text" name="youin" id="youin" class="form-control kenanForm-input"  value="" />
-                                </div>
-                            </div>
-
-                            <div class="row form-group">
-                                <div class="col-md-2">改善対策： </div>
-                                <div class="col-md-4">
-                                    <input type="text" name="taisaku" id="taisaku" class="form-control kenanForm-input" />
-                                </div>
-                                <div class="col-md-2">処置内容： </div>
-                                <div class="col-md-4">
-                                    <input type="text" name="syotiNaiyou" id="syotiNaiyou" class="form-control kenanForm-input"  value=""/>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" onclick="saveKenan()" class="btn btn-primary">保存</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 
 
 <script type="text/javascript">
@@ -447,96 +310,7 @@
         }
     };
 
-    function saveTenkenrank(obj){
-        var rireki = $(obj).parent().parent();
-        var rirekiId = rireki[0].id;
 
-        //自動的に点検内容を設定する
-        if(obj.value=="A"){
-            document.getElementById(rirekiId+'-naiyo').value="試験のみ";
-        }else if(obj.value=="B"){
-            document.getElementById(rirekiId+'-naiyo').value="GP入替";
-        }else if(obj.value=="C"){
-            document.getElementById(rirekiId+'-naiyo').value="分解点検";
-        }else if(obj.value=="D"){
-            document.getElementById(rirekiId+'-naiyo').value="取替";
-        }else if(obj.value=="E"){
-            document.getElementById(rirekiId+'-naiyo').value="その他";
-        }else{
-            document.getElementById(rirekiId+'-naiyo').value="";
-        }
-        var tenkennaiyo=document.getElementById(rirekiId+'-naiyo').value;
-
-        $.post("/valdacHost/tenken/saveTenkenrank",{"id":rirekiId,"tenkenrank":obj.value,"tenkennaiyo":tenkennaiyo},function(data){
-            if(data == '完成'){
-                if(!$(obj).hasClass("input-success")) {
-                    $(obj).addClass("input-success");
-                }
-            } else {
-                if($(obj).hasClass("input-success")) {
-                    $(obj).removeClass("input-success");
-                }
-            }
-            updateListNumbers();
-        })
-
-    }
-
-    function saveTenkenkekka(obj){
-        var rireki = $(obj).parent().parent();
-        var rirekiId = rireki[0].id;
-        $.post("/valdacHost/tenken/saveTenkenkekka",{"id":rirekiId,"tenkenkekka":obj.value},function(data){
-            if(data == '0'){
-                if($(obj).hasClass("input-success")) {
-                    $(obj).removeClass("input-success");
-                }
-                if($(rireki).hasClass("success")) {
-                    $(rireki).removeClass("success");
-                }
-            } else {
-                if(!$(obj).hasClass("input-success")) {
-                    $(obj).addClass("input-success");
-                }
-                if(!$(rireki).hasClass("success")) {
-                    $(rireki).addClass("success");
-                }
-            }
-            updateKekkaListNumbers();
-        })
-    }
-
-    function saveTenkenBikou(obj){
-        var rireki = $(obj).parent().parent();
-        var rirekiId = rireki[0].id;
-        $.post("/valdacHost/tenken/saveTenkenBikou",{"id":rirekiId,"tenkenBikou":obj.value},function(data){
-            if(data == '0'){
-                if($(obj).hasClass("input-success")) {
-                    $(obj).removeClass("input-success");
-                }
-            } else {
-                if(!$(obj).hasClass("input-success")) {
-                    $(obj).addClass("input-success");
-                }
-            }
-        })
-    }
-
-    function saveTenkennaiyo(obj){
-        var rireki = $(obj).parent().parent();
-        var rirekiId = rireki[0].id;
-        $.post("/valdacHost/tenken/saveTenkennaiyo",{"id":rirekiId,"tenkennaiyo":obj.value},function(data){
-            console.log("data="+data);
-            if(data == '0'){
-                if($(obj).hasClass("input-success")) {
-                    $(obj).removeClass("input-success");
-                }
-            } else {
-                if(!$(obj).hasClass("input-success")) {
-                    $(obj).addClass("input-success");
-                }
-            }
-        })
-    }
 
     function updateListNumbers(){
         $.get("/valdacHost/tenken/getListNumber",function(data){
@@ -566,47 +340,6 @@
         })
     }
 
-    function openKenan(obj){
-        var rireki = $(obj).parent().parent();
-        var rirekiId = rireki[0].id;
-        $("#rirekiId").val(rirekiId);
-
-        $.get("/valdacHost/kenan/addKenanByTenkenrireki",{"id":rirekiId},function(data){
-            var koujiFormData = JSON.parse(data);
-            $(".kenanForm-input").val("");
-            var koujiInfo = koujiFormData.kouji.kjNo + "/" + koujiFormData.kouji.kjMeisyo;
-            $("#koujiInfo").html(koujiInfo);
-            var kikisysInfo = koujiFormData.valve.vNo + " ( " + koujiFormData.valve.benMeisyo + " ) / " + koujiFormData.kiki.kikiMei;
-            $("#kikisysInfo").html(kikisysInfo);
-            $("#kenanKoujiId").val(koujiFormData.koujiId);
-            $("#kenanKoujirelationId").val(koujiFormData.koujirelationId);
-            $("#kenanKikiId").val(koujiFormData.kikiId);
-            $("#kenanKikiSystemId").val(koujiFormData.kikisysId);
-            $("#taiouFlg").val("未対応");
-            $("#kenanModal").modal();
-        });
-    }
-
-    function deleteTenkenKiki(obj){
-        var rireki = $(obj).parent().parent();
-        var rirekiId = rireki[0].id;
-        $("#rirekiId").val(rirekiId);
-
-        if (!confirm("この行を削除しますか？"))
-            return;
-
-        $.get("/valdacHost/tenken/deleteTenkenRirekiByTenkenrireki",{"id":rirekiId},function(data){
-
-            var objTR=obj.parentNode.parentNode;
-            var objTBL=objTR.parentNode;
-            if(objTBL){
-                objTBL.deleteRow(objTR.sectionRowIndex);
-            }
-
-            updateListNumbers();
-            updateKekkaListNumbers();
-        });
-    }
     function openProgressPanel(obj){
         var content = new String($(obj).html());
         $(".progress-tab").removeClass("active");
@@ -619,18 +352,6 @@
             $($(".progress-tab")[1]).addClass("active");
         }
         return false;
-    }
-
-    function saveKenan(){
-        var datas = $(".kenanForm-input");
-        var kenanFormArray = new Array();
-        for(var i = 0;i<datas.length;i++){
-            kenanFormArray[i] = datas[i].value;
-        }
-        var kenanFormJson = JSON.stringify(kenanFormArray);
-        $.post("/valdacHost/kenan/saveKenanWithForm",{"kenanForm":kenanFormJson},function(data){
-            $("#kenanModal").modal("hide");
-        })
     }
 </script>
 </html>
