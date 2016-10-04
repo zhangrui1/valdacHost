@@ -3,15 +3,15 @@
 <mapper namespace="com.toyo.vh.dao.UserMapper">
 
     <select id="findByUserId" parameterType="User" resultType="User">
-        select * from user where userid=#{userid} and password=#{password}
+        select * from vh_user where userid=#{userid} and password=#{password}
     </select>
 
     <select id="findUserByKengen" parameterType="String" resultType="String">
-        select username from user where kengen=#{kengen}
+        select username from vh_user where kengen=#{kengen}
     </select>
 
     <select id="findByUserIdOnly" parameterType="String" resultType="User">
-        select * from user where userId=#{userId}
+        select * from vh_user where userId=#{userId}
     </select>
 
 </mapper>

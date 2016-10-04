@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface LocationMapper {
 
-    @Select("select * from location order by kCodeLKana,kCodeMKana,kCodeSKana")
+    @Select("select * from vh_location order by kCodeLKana,kCodeMKana,kCodeSKana")
     public List<Location> findAllLocation();
 
     /**kCodeLを抽出する*/
