@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.toyo.vh.dao.LocationMapper">
+
+
+    <select id="findKCodeL"  resultType="String">
+        SELECT DISTINCT kCodeL
+        FROM location ORDER BY kCodeLKana
+    </select>
+
+
+    <select id="findKCodeMByL" parameterType="Location" resultType="String">
+        SELECT DISTINCT kCodeM
+        FROM location
+        WHERE kCodeL=#{kCodeL}  ORDER BY kCodeMKana
+    </select>
+
+
+    <select id="findKCodeSByLM" parameterType="Location" resultType="String">
+        SELECT DISTINCT kCodeS
+        FROM location
+        WHERE kCodeL=#{kCodeL}
+        AND kCodeM=#{kCodeM} ORDER BY kCodeSKana
+    </select>
+
+</mapper>

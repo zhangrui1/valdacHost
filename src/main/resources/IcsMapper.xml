@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.toyo.vh.dao.IcsMapper">
+
+    <select id="findAllIcs" resultType="Ics">
+        SELECT * FROM ics;
+    </select>
+
+    <select id="findIcsById" parameterType="string" resultType="Ics">
+        SELECT * FROM ics WHERE id=#{id}
+    </select>
+
+    <select id="findIcsByIcsNum" parameterType="String" resultType="Ics">
+        SELECT * FROM ics WHERE icsNum = #{icsNum}
+    </select>
+</mapper>

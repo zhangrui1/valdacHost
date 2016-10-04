@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.toyo.vh.dao.KoujirelationMapper">
+
+    <select id="findKoujirelationById" parameterType="String" resultType="Koujirelation">
+        select * from koujirelation where id=#{id}
+    </select>
+
+    <select id="findAllKoujirelationByKoujiid" parameterType="String" resultType="Koujirelation">
+        select *
+        from koujirelation
+        where koujiid=#{koujiid}
+    </select>
+
+    <select id="findKoujirelationBykikiSystemId" parameterType="String" resultType="Koujirelation">
+        select *
+        from koujirelation
+        where kikisysid=#{kikisysid}
+    </select>
+
+    <select id="findKoujirelationByKoujirelation" parameterType="Koujirelation" resultType="Koujirelation">
+        select *
+        from koujirelation
+        where koujiid=#{koujiid} and kikisysid=#{kikisysid} and kikiid=#{kikiid}
+    </select>
+
+    <select id="findKikisysListByKoujiid" parameterType="String" resultType="Valve">
+        select distinct koujirelation.kikisysid,kikisystem.*
+        from koujirelation
+        Left join kikisystem
+        ON koujirelation.kikisysid=kikisystem.kikiSysId
+        where koujiid=#{koujiid}
+    </select>
+
+    <select id="findKikiListByKoujiidAndKikisys" parameterType="String" resultType="Kiki">
+        select distinct koujirelation.kikiid,kiki.*
+        from koujirelation
+        Left join kiki
+        ON koujirelation.kikiid=kiki.kikiId
+        where koujiid=#{koujiid} and kikisysid=#{kikisysid}
+    </select>
+
+    <insert id="insertKoujirelation" parameterType="Koujirelation">
+        insert into
+        koujirelation(koujiid,kikisysid,kikiid)
+        values(
+        #{koujiid},
+        #{kikisysid},
+        #{kikiid}
+        )
+    </insert>
+
+    <delete id="deleteKoujirelation" parameterType="Koujirelation" >
+        DELETE
+        FROM koujirelation
+        WHERE id=#{id}
+    </delete>
+
+    <delete id="deleteKoujirelationbyKoujiid" parameterType="String" >
+        DELETE
+        FROM koujirelation
+        WHERE koujiid=#{koujiid}
+    </delete>
+
+    <select id="getLastInsertId" resultType="int">
+        select id from koujirelation ORDER BY id DESC limit 1
+    </select>
+
+    <select id="findAllKoujirelation" resultType="Koujirelation">
+        select * from koujirelation;
+    </select>
+
+    <select id="findkikiIdListByKoujiidAndKikisys" resultType="int">
+        select kikiid from koujirelation where koujiid=#{koujiid} and kikisysid=#{kikisysid}
+    </select>
+
+
+
+</mapper>

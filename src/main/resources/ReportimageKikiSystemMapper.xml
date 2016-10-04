@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.toyo.vh.dao.ReportimageKikiSystemMapper">
+    <insert id="addReportimageKikisystem" parameterType="java.util.List">
+        insert into reportimagekikisystem(koujiId, imagename, kikiSysId)
+        values
+        <foreach collection="list" item="i" index="index">
+            (
+            #{i.koujiId},
+            #{i.imagename},
+            #{i.kikiSysId}
+            )
+        </foreach>
+    </insert>
+
+    <insert id="insertReportimageKikisystem" parameterType="ReportimageKikiSystem">
+        insert into reportimagekikisystem (koujiId, imagename, kikiSysId)
+        values
+        (
+        #{koujiId},
+        #{imagename},
+        #{kikiSysId}
+        )
+    </insert>
+
+    <select id="getListByReportimageKikiSystem" parameterType="ReportimageKikiSystem" resultType="ReportimageKikiSystem">
+        select * from reportimagekikisystem where koujiId=#{koujiId} and imagename=#{imagename}
+    </select>
+
+    <delete id="deleteByReportimageKikiSystem" parameterType="ReportimageKikiSystem">
+        delete from reportimagekikisystem where koujiId=#{koujiId} and imagename=#{imagename}
+    </delete>
+
+    <select id="getListByKoujiId" parameterType="int" resultType="ReportimageKikiSystem">
+        select * from reportimagekikisystem where koujiId=#{koujiId}
+    </select>
+
+    <delete id="deleteByKoujiIdAndKikisysId" parameterType="ReportimageKikiSystem">
+        delete from reportimagekikisystem where koujiId=#{koujiId} and kikiSysId=#{kikiSysId}
+    </delete>
+</mapper>

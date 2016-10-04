@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.toyo.vh.dao.KoujiMapper">
+
+    <select id="findKoujiById" parameterType="String" resultType="Kouji">
+        select * from kouji where id=#{id} and delFlgkouji="0"
+    </select>
+
+
+    <select id="findKoujiByPersonAndKjNo" parameterType="Kouji" resultType="Kouji">
+        select * from kouji where delFlgkouji="0"
+        <if test="kjNo.length()>0">
+           and kjNo  like "%${kjNo}%"
+        </if>
+        <if test="person.length()>0">
+           and person = #{person}
+        </if>
+    </select>
+
+    <select id="findKoujiByperson" parameterType="String" resultType="Kouji">
+        select * from kouji where delFlgkouji="0"
+            <if test="value.length>0">
+                and person = #{username}
+            </if>
+    </select>
+
+    <select id="findByPersonAndKoujiStatus" parameterType="Kouji" resultType="Kouji">
+        select * from kouji  where delFlgkouji="0"
+            <if test="person.length()>0">
+                and  person = #{person}
+            </if>
+            <if test="status.length()>0">
+                and status = #{status}
+            </if>
+    </select>
+
+    <select id="findLastedTenKoujiByperson" parameterType="String" resultType="Kouji">
+        select * from kouji where delFlgkouji="0"
+            <if test="value.length>0">
+                and person=#{username}
+            </if>
+        ORDER BY bgnYmd DESC limit 10
+    </select>
+
+    <select id="findLastedTenKoujiBypersonAndKoujiStatus" parameterType="Kouji" resultType="Kouji">
+        select * from kouji where delFlgkouji="0"
+            <if test="person.length()>0">
+                and  person = #{person}
+            </if>
+            <if test="status.length()>0">
+               and  status = #{status}
+            </if>
+        ORDER BY bgnYmd DESC limit 10
+    </select>
+
+    <select id="findUpdateTenKoujiByperson" parameterType="String" resultType="Kouji">
+        select * from kouji where delFlgkouji="0"
+            <if test="value.length>0">
+               and person=#{username}
+            </if>
+        ORDER BY updDate DESC limit 10
+    </select>
+
+    <select id="findUpdateTenKoujiBypersonAndKoujiStatus" parameterType="Kouji" resultType="Kouji">
+        select * from kouji where delFlgkouji="0"
+            <if test="person.length()>0">
+                and person = #{person}
+            </if>
+            <if test="status.length()>0">
+                and status = #{status}
+            </if>
+        ORDER BY updDate DESC limit 10
+    </select>
+
+    <insert id="insertKouji" parameterType="Kouji">
+        insert into
+        kouji(kjNo, kjMeisyo,kjKbn,bgnYmd,endYmd,nextYmd,nendo,syukan,gyosyaRyakuA,location,status,person, delFlgkouji,trkDate, updDate)
+        values(
+        #{kjNo},
+        #{kjMeisyo},
+        #{kjKbn},
+        #{bgnYmd},
+        #{endYmd},
+        #{nextYmd},
+        #{nendo},
+        #{syukan},
+        #{gyosyaRyakuA},
+        #{location},
+        #{status},
+        #{person},
+        #{delFlgkouji},
+        #{trkDate},
+        #{updDate}
+        )
+    </insert>
+
+    <update id="updateKouji" parameterType="Kouji">
+        update kouji
+        set kjNo = #{kjNo},
+        kjMeisyo = #{kjMeisyo},
+        kjKbn = #{kjKbn},
+        bgnYmd = #{bgnYmd},
+        endYmd = #{endYmd},
+        nextYmd = #{nextYmd},
+        nendo = #{nendo},
+        syukan = #{syukan},
+        gyosyaRyakuA = #{gyosyaRyakuA},
+        location = #{location},
+        status = #{status},
+        person = #{person},
+        updDate = #{updDate}
+        where id = #{id}
+    </update>
+
+    <update id="deleteKouji" parameterType="Kouji" >
+        update kouji
+        set delFlgkouji=#{delFlgkouji}
+        WHERE id=#{id}
+    </update>
+
+    <select id="getLastInsertId" resultType="int">
+        select id from kouji ORDER BY id DESC limit 1
+    </select>
+
+    <select id="findAllKouji" parameterType="String" resultType="Kouji">
+        select * from kouji where delFlgkouji="0"
+    </select>
+
+    <select id="findAllKoujiSort" parameterType="String" resultType="Kouji">
+        select * from kouji where delFlgkouji="0" ORDER BY  bgnYmd DESC;
+    </select>
+
+    <select id="findKoujiByLocation" parameterType="String" resultType="Kouji">
+        select * from kouji
+        where location = #{location} and delFlgkouji="0"
+        ORDER BY  bgnYmd DESC;
+    </select>
+
+    <select id="findKoujiByLocationAndKjNo" parameterType="Kouji" resultType="Kouji">
+        select * from kouji where location = #{location} and kjNo = #{kjNo} and delFlgkouji="0"
+    </select>
+</mapper>

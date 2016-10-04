@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.toyo.vh.dao.ItemMapper">
+
+    <select id="findByLocationName" parameterType="Valve" resultType="Valve">
+        select * from kikisystem
+        where locationName like "%${locationName}%" and delFlg="0"
+        ORDER BY updDate DESC
+    </select>
+
+    <select id="findByVNo" parameterType="Valve" resultType="Valve">
+        select * from kikisystem
+        where vNo like "%${vNo}%"
+        and locationName=#{locationName}
+        and delFlg="0"
+        order BY updDate DESC
+    </select>
+
+    <select id="findByValve" parameterType="Valve" resultType="Valve">
+        select * from kikisystem
+        where delFlg="0"
+        <if test="locationName.length()>0">
+            and locationName like "%${locationName}%"
+        </if>
+        <if test="vNo.length()>0">
+            and vNo like "%${vNo}%"
+        </if>
+        <if test="benMeisyo.length()>0">
+            and benMeisyo like "%${benMeisyo}%"
+        </if>
+        <if test="keisikiRyaku.length()>0">
+            and keisikiRyaku like "%${keisikiRyaku}%"
+        </if>
+        <if test="keisiki.length()>0">
+            and keisiki like "%${keisiki}%"
+        </if>
+        <if test="sousaRyaku.length()>0">
+            and sousaRyaku like "%${sousaRyaku}%"
+        </if>
+        <if test="sousa.length()>0">
+            and sousa like "%${sousa}%"
+        </if>
+        <if test="classRyaku.length()>0">
+            and classRyaku like "%${classRyaku}%"
+        </if>
+        <if test="classType.length()>0">
+            and classType like "%${classType}%"
+        </if>
+        <if test="yobikeiRyaku.length()>0">
+            and yobikeiRyaku like "%${yobikeiRyaku}%"
+        </if>
+        <if test="yobikei.length()>0">
+            and yobikei like "%${yobikei}%"
+        </if>
+        <if test="szHouRyaku.length()>0">
+            and szHouRyaku like "%${szHouRyaku}%"
+        </if>
+        <if test="szHou.length()>0">
+            and szHou like "%${szHou}%"
+        </if>
+        <if test="szKikaku.length()>0">
+            and szKikaku like "%${szKikaku}%"
+        </if>
+        <if test="zaisituRyaku.length()>0">
+            and zaisituRyaku like "%${zaisituRyaku}%"
+        </if>
+        <if test="zaisitu.length()>0">
+            and zaisitu like "%${zaisitu}%"
+        </if>
+        <if test="ryutaiRyaku.length()>0">
+            and ryutaiRyaku like "%${ryutaiRyaku}%"
+        </if>
+        <if test="ryutai.length()>0">
+            and ryutai like "%${ryutai}%"
+        </if>
+        <if test="ics.length()>0">
+            and ics like "%${ics}%"
+        </if>
+        <if test="setBasyo.length()>0">
+            and setBasyo like "%${setBasyo}%"
+        </if>
+        <if test="setKiki.length()>0">
+            and setKiki like "%${setKiki}%"
+        </if>
+        <if test="setSetubi.length()>0">
+            and setSetubi like "%${setSetubi}%"
+        </if>
+        order BY updDate DESC
+    </select>
+
+    <select id="findByKiki" parameterType="Kiki" resultType="Kiki">
+        select kiki.* from kiki,kikisystem
+        where kiki.kikisysidKiki=kikiSysId and kikisystem.delFlg="0"
+        AND kikiDelFlg="0"
+        <if test="kikiBunrui.length()>0">
+            and kikiBunrui like "%${kikiBunrui}%"
+        </if>
+        <if test="kikiNo.length()>0">
+            and kikiNo like "%${kikiNo}%"
+        </if>
+        <if test="kikiMei.length()>0">
+            and kikiMei like "%${kikiMei}%"
+        </if>
+        <if test="syukan.length()>0">
+            and syukan like "%${syukan}%"
+        </if>
+        <if test="makerRyaku.length()>0">
+            and makerRyaku like "%${makerRyaku}%"
+        </if>
+        <if test="maker.length()>0">
+            and maker like "%${maker}%"
+        </if>
+        <if test="katasikiNo.length()>0">
+            and katasikiNo like "%${katasikiNo}%"
+        </if>
+        <if test="serialNo.length()>0">
+            and serialNo like "%${serialNo}%"
+        </if>
+        <if test="orderNo.length()>0">
+            and orderNo like "%${orderNo}%"
+        </if>
+        <if test="bikou.length()>0">
+            and locationName like "%${bikou}%"
+        </if>
+
+    </select>
+
+    <select id="findByBuhin" parameterType="Buhin" resultType="Buhin">
+        select buhin.* from buhin,kikisystem,kiki
+        where buhin.kikisysidBuhin=kikiSysId
+        and  buhin.kikiidBuhin=kiki.kikiId
+        and  kikisystem.delFlg="0"
+        and  kiki.kikiDelFlg="0"
+        <if test="buhinKbn.length()>0">
+            and buhinKbn like "%${buhinKbn}%"
+        </if>
+        <if test="asbKbn.length()>0">
+            and asbKbn like "%${asbKbn}%"
+        </if>
+        <if test="buhinMei.length()>0">
+            and buhinMei like "%${buhinMei}%"
+        </if>
+        <if test="hyojunSiyou.length()>0">
+            and hyojunSiyou like "%${hyojunSiyou}%"
+        </if>
+        <if test="siyouKasyo.length()>0">
+            and siyouKasyo like "%${siyouKasyo}%"
+        </if>
+        <if test="sizaiName.length()>0">
+            and sizaiName like "%${sizaiName}%"
+        </if>
+        <if test="hinban.length()>0">
+            and hinban like "%${hinban}%"
+        </if>
+        <if test="makerRyaku.length()>0">
+            and makerRyaku like "%${makerRyaku}%"
+        </if>
+        <if test="maker.length()>0">
+            and maker like "%${maker}%"
+        </if>
+        <if test="sunpou.length()>0">
+            and sunpou like "%${sunpou}%"
+        </if>
+        <if test="suryo.length()>0">
+            and suryo like "%${suryo}%"
+        </if>
+        <if test="bikou.length()>0">
+            and locationName like "%${bikou}%"
+        </if>
+
+    </select>
+
+    <select id="findKikisysByVNo" parameterType="Valve" resultType="Valve">
+        select * from kikisystem
+        where vNo like "%${vNo}%" and delFlg="0"
+    </select>
+
+    <select id="findKikisysByKoujiId" parameterType="String" resultType="Valve">
+        SELECT DISTINCT koujirelation.kikisysid, kikisystem.*
+        FROM kikisystem, koujirelation
+        WHERE koujirelation.koujiid=#{koujiid} and
+        koujirelation.kikisysid=kikisystem.kikisysid
+        and delFlg="0"
+    </select>
+
+    <select id="findKikiByKikisysIdSyukan" parameterType="String" resultType="Kiki">
+--         SELECT DISTINCT kiki.kikiId, kikiBunrui, kikiBunruiSeq, kikiNo, kikiMei, syukan, makerRyaku, maker, katasikiNo, serialNo,orderNo, bikou, imageId, trkDate, updDate
+        SELECT DISTINCT kiki.kikiId, kiki.*
+        FROM kiki, kikisystemrelation
+        WHERE kikisystemrelation.kikisysid=#{kikiSysId}
+        AND kikisystemrelation.kikiid=kiki.kikiId
+        <if test="syukan.length()>0">
+            and kiki.syukan = #{syukan}
+        </if>
+    </select>
+
+    <select id="findKikisysBykikisysId" parameterType="String" resultType="Valve">
+        select * from kikisystem
+        where kikiSysId=#{kikiSysId}
+    </select>
+
+    <select id="findKikiByKikiId" parameterType="String" resultType="Kiki">
+        select * from kiki
+        where kikiId=#{kikiId}
+    </select>
+
+    <select id="findAllValve" parameterType="String" resultType="Valve">
+        select * from kikisystem
+    </select>
+
+    <select id="findAllKiki" parameterType="String" resultType="Kiki">
+        select * from kiki
+    </select>
+
+    <select id="findAllBuhin" parameterType="String" resultType="Buhin">
+        select * from buhin
+    </select>
+
+    <select id="findAllKikisystemrelation" parameterType="String" resultType="Kikisystemrelation">
+        select * from kikisystemrelation
+    </select>
+
+    <update id="updateKenanFlgByKikisys" parameterType="Valve">
+        update kikisystem
+        set   updDate = #{updDate},
+        kenanFlg = #{kenanFlg}
+        where kikiSysId = #{kikiSysId}
+    </update>
+</mapper>

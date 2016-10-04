@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.toyo.vh.dao.ReportImageMapper">
+
+    <select id="findReportImageById" parameterType="String" resultType="ReportImage">
+        select * from reportImage where id=#{id}
+    </select>
+
+    <select id="findReportImageByKoujiId" parameterType="String" resultType="ReportImage">
+        select * from reportImage where koujiId=#{koujiId} ORDER BY page;
+    </select>
+
+    <select id="findReportImageByKikisysId" parameterType="String" resultType="ReportImage">
+        SELECT *
+        FROM reportImage i
+		LEFT JOIN reportimagekikisystem ip ON i.imagename=ip.imagename
+		WHERE ip.kikiSysId=#{kikiSysId}
+    </select>
+
+    <select id="findReportImageByImagename" parameterType="String" resultType="ReportImage">
+        select * from reportImage where imagename=#{imagename}
+    </select>
+
+    <insert id="insertReportImage" parameterType="ReportImage">
+        insert into
+        reportImage(koujiId,imagesyu,page,imagename,papersize,bikou,trkDate, updDate)
+        values(
+        #{koujiId},
+        #{imagesyu},
+        #{page},
+        #{imagename},
+        #{papersize},
+        #{bikou},
+        #{trkDate},
+        #{updDate}
+        )
+    </insert>
+
+    <update id="updateReportImage" parameterType="ReportImage">
+        update reportImage
+        set koujiId = #{koujiId},
+        imagesyu = #{imagesyu},
+        page = #{page},
+        imagename = #{imagename},
+        papersize = #{papersize},
+        bikou = #{bikou},
+        updDate = #{updDate}
+        where id = #{id}
+    </update>
+
+    <update id="updateReportImageBikouByKoujiId" parameterType="ReportImage">
+        update reportImage
+        set    bikou = #{bikou}
+        where koujiId = #{koujiId}
+    </update>
+
+    <delete id="deleteReportImage" parameterType="ReportImage" >
+        DELETE
+        FROM reportImage
+        WHERE id=#{id}
+    </delete>
+
+    <select id="getLastInsertId" resultType="int">
+        select id from reportImage ORDER BY id DESC limit 1
+    </select>
+
+    <select id="getLastPageByKoujiId" resultType="int">
+        select page from reportImage where koujiId=#{koujiId} ORDER BY page DESC limit 1
+    </select>
+
+    <select id="findReportImageByKoujiIdAndPage" resultType="ReportImage">
+        select * from reportImage where koujiId=#{koujiId} ORDER BY page limit #{page},6;
+    </select>
+
+    <select id="getPageByKoujiId" resultType="int">
+        select count(*) from reportImage where koujiId=#{koujiId}
+    </select>
+
+</mapper>
