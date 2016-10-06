@@ -22,6 +22,14 @@ public class LocationService {
         return locationList;
     }
 
+    /**ユーザ会社のlocationのみを抽出する*/
+    public List<Location> getLocationByUserDepartment(String userDepart){
+        Location tmpLocation=new Location();
+        tmpLocation.setkCodeL(userDepart);
+        List<Location> locationList = locationMapper.findALocationByUserDepartment(tmpLocation);
+        return locationList;
+    }
+
     /**kCodeL　会社名を抽出する*/
     public List<String> getKCodeL(){
         List<String> kCodeLList = locationMapper.findKCodeL();

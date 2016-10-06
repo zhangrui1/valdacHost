@@ -13,6 +13,9 @@ public interface LocationMapper {
     @Select("select * from vh_location order by kCodeLKana,kCodeMKana,kCodeSKana")
     public List<Location> findAllLocation();
 
+    /**する*/
+    public List<Location> findALocationByUserDepartment(Location location);
+
     /**kCodeLを抽出する*/
     public List<String> findKCodeL();
 

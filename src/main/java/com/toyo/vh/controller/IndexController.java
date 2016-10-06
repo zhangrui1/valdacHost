@@ -18,6 +18,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -71,7 +72,13 @@ public class IndexController {
             session.setAttribute("indexPath",indexPath);
 
             //get location
-            List<Location> locationList = locationService.getAllLocation();
+            List<Location> locationList =new ArrayList<Location>();
+            if("admin".equals(user.getDepartment())){
+                locationList = locationService.getAllLocation();
+            }else{
+                locationList = locationService.getLocationByUserDepartment(user.getDepartment());
+            }
+
             List<String> nameList = new LinkedList<String>();
             for (int i = 0; i < locationList.size(); i++) {
                 String tmpLocation= StringUtil.concatWithDelimit(" ", locationList.get(i).getkCodeL(), locationList.get(i).getkCodeM(), locationList.get(i).getkCodeS());
@@ -79,11 +86,11 @@ public class IndexController {
                     nameList.add(tmpLocation);
                 }
             }
-            //sessionにすでにある場合はsessionを使う
-            String location=(String)session.getAttribute("locationNameSelectedForKouji");
-            List<Kouji> koujiresult=(List<Kouji>)session.getAttribute("locationKoujiSelectedForKouji");
+            //ログインするたびに初期化
+            String location="";
+            List<Kouji> koujiresult=new ArrayList<Kouji>();
             if(StringUtil.isEmpty(location)){
-                location="四国電力 阿南発電所 １号機";
+                location=nameList.get(0);
                 koujiresult=koujiMapper.findKoujiByLocation(location);
             }
 

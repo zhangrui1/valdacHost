@@ -3,6 +3,11 @@
 <mapper namespace="com.toyo.vh.dao.LocationMapper">
 
 
+    <select id="findALocationByUserDepartment"   parameterType="Location" resultType="Location">
+        SELECT *
+        FROM vh_location where kCodeL like #{kCodeL}
+    </select>
+
     <select id="findKCodeL"  resultType="String">
         SELECT DISTINCT kCodeL
         FROM vh_location ORDER BY kCodeLKana

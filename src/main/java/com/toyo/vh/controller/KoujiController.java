@@ -252,7 +252,13 @@ public class KoujiController {
             modelMap.addAttribute("tenkenRirekiHistory",tenkenRirekiList);
 
             //get location
-            List<Location> locationList = locationService.getAllLocation();
+            List<Location> locationList =new ArrayList<Location>();
+            if("admin".equals(user.getDepartment())){
+                locationList = locationService.getAllLocation();
+            }else{
+                locationList = locationService.getLocationByUserDepartment(user.getDepartment());
+            }
+
             List<String> nameList = new LinkedList<String>();
             for (int i = 0; i < locationList.size(); i++) {
                 String tmpLocation= StringUtil.concatWithDelimit(" ", locationList.get(i).getkCodeL(), locationList.get(i).getkCodeM(), locationList.get(i).getkCodeS());

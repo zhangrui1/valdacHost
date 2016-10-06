@@ -41,7 +41,13 @@ public class ListController {
         modelMap.addAttribute("user",user);
 
         //get location
-        List<Location> locationList = locationService.getAllLocation();
+        List<Location> locationList =new ArrayList<Location>();
+        if("admin".equals(user.getDepartment())){
+            locationList = locationService.getAllLocation();
+        }else{
+            locationList = locationService.getLocationByUserDepartment(user.getDepartment());
+        }
+
         List<String> nameList = new LinkedList<String>();
         for (int i = 0; i < locationList.size(); i++) {
             String tmpLocation= StringUtil.concatWithDelimit(" ",locationList.get(i).getkCodeL(),locationList.get(i).getkCodeM(),locationList.get(i).getkCodeS());
@@ -69,7 +75,14 @@ public class ListController {
     @RequestMapping(value = "/valve", method = RequestMethod.GET)
     public String valve(ModelMap modelMap,HttpSession session){
         //get location
-        List<Location> locationList = locationService.getAllLocation();
+        User user=(User)session.getAttribute("user");
+        List<Location> locationList =new ArrayList<Location>();
+        if("admin".equals(user.getDepartment())){
+            locationList = locationService.getAllLocation();
+        }else{
+            locationList = locationService.getLocationByUserDepartment(user.getDepartment());
+        }
+
         List<String> nameList = new LinkedList<String>();
         for (int i = 0; i < locationList.size(); i++) {
             String tmpLocation= StringUtil.concatWithDelimit(" ",locationList.get(i).getkCodeL(),locationList.get(i).getkCodeM(),locationList.get(i).getkCodeS());
@@ -90,6 +103,11 @@ public class ListController {
         List<Valve> valveResults=(List<Valve>)session.getAttribute("valveResultsForKikisys");
         if(CollectionUtils.isEmpty(valveResults)){
             valveResults=new ArrayList<Valve>();
+        }else{
+            if(!valveResults.get(0).getLocationName().contains(location)){
+                location="全部会社名";
+                valveResults=new ArrayList<Valve>();
+            }
         }
         //keyword取得
         String KikisysSearchKeyword=(String)session.getAttribute("KikisysSearchKeyword");
@@ -118,7 +136,15 @@ public class ListController {
         //get location
         List<String> nameList = (List<String>)session.getAttribute("nameList");
         if(CollectionUtils.isEmpty(nameList)){
-            List<Location> locationList = locationService.getAllLocation();
+            //get location
+            User user=(User)session.getAttribute("user");
+            List<Location> locationList =new ArrayList<Location>();
+            if("admin".equals(user.getDepartment())){
+                locationList = locationService.getAllLocation();
+            }else{
+                locationList = locationService.getLocationByUserDepartment(user.getDepartment());
+            }
+
             for (int i = 0; i < locationList.size(); i++) {
                 String tmpLocation= StringUtil.concatWithDelimit(" ",locationList.get(i).getkCodeL(),locationList.get(i).getkCodeM(),locationList.get(i).getkCodeS());
                 if(!nameList.contains(locationList.get(i).getkCodeL())){
@@ -138,6 +164,11 @@ public class ListController {
         List<ValveForDL> itemResults=(List<ValveForDL>)session.getAttribute("kikiSearchitemResults");
         if(CollectionUtils.isEmpty(itemResults)){
             itemResults=new ArrayList<ValveForDL>();
+        }else{
+            if(!itemResults.get(0).getValve().getLocationName().contains(locationKikiSearchSelected)){
+                locationKikiSearchSelected="全部会社名";
+                itemResults=new ArrayList<ValveForDL>();
+            }
         }
         String keywordMessage=(String)session.getAttribute("keywordMessage");
         if(keywordMessage==null){
@@ -163,7 +194,15 @@ public class ListController {
         //get location
         List<String> nameList = (List<String>)session.getAttribute("nameList");
         if(CollectionUtils.isEmpty(nameList)){
-            List<Location> locationList = locationService.getAllLocation();
+            //get location
+            User user=(User)session.getAttribute("user");
+            List<Location> locationList =new ArrayList<Location>();
+            if("admin".equals(user.getDepartment())){
+                locationList = locationService.getAllLocation();
+            }else{
+                locationList = locationService.getLocationByUserDepartment(user.getDepartment());
+            }
+
             for (int i = 0; i < locationList.size(); i++) {
                 String tmpLocation= StringUtil.concatWithDelimit(" ",locationList.get(i).getkCodeL(),locationList.get(i).getkCodeM(),locationList.get(i).getkCodeS());
                 if(!nameList.contains(locationList.get(i).getkCodeL())){
@@ -182,8 +221,15 @@ public class ListController {
 
         List<ValveForDL> itemResults=(List<ValveForDL>)session.getAttribute("buhinSearchitemResults");
         if(CollectionUtils.isEmpty(itemResults)){
+            locationBuhinSearchSelected="全部会社名";
             itemResults=new ArrayList<ValveForDL>();
+        }else{
+            if(!itemResults.get(0).getValve().getLocationName().contains(locationBuhinSearchSelected)){
+                locationBuhinSearchSelected="全部会社名";
+                itemResults=new ArrayList<ValveForDL>();
+            }
         }
+
         String buhinKeywordMessage=(String)session.getAttribute("buhinKeywordMessage");
         if(buhinKeywordMessage==null){
             buhinKeywordMessage="";
@@ -207,7 +253,15 @@ public class ListController {
     @RequestMapping(value = "/valveMult", method = RequestMethod.GET)
     public String valveMult(ModelMap modelMap,HttpSession session){
         //get location
-        List<Location> locationList = locationService.getAllLocation();
+        User user=(User)session.getAttribute("user");
+        List<Location> locationList =new ArrayList<Location>();
+        if("admin".equals(user.getDepartment())){
+            locationList = locationService.getAllLocation();
+        }else{
+            locationList = locationService.getLocationByUserDepartment(user.getDepartment());
+        }
+
+
         List<String> nameList = new LinkedList<String>();
         for (int i = 0; i < locationList.size(); i++) {
             String tmpLocation= StringUtil.concatWithDelimit(" ",locationList.get(i).getkCodeL(),locationList.get(i).getkCodeM(),locationList.get(i).getkCodeS());
@@ -223,12 +277,18 @@ public class ListController {
         //会社名をsessionから取得
         String location=(String)session.getAttribute("locationNameSelectedForValve");
         if(StringUtil.isEmpty(location)){
-            location="全部会社名";
+            location=nameList.get(0);
         }
         //valve取得
         List<Valve> valveMultResults=(List<Valve>)session.getAttribute("valveMultResultsForKikisys");
         if(CollectionUtils.isEmpty(valveMultResults)){
+            location="全部会社名";
             valveMultResults=new ArrayList<Valve>();
+        }else{
+            if(!valveMultResults.get(0).getLocationName().contains(location)){
+                location="全部会社名";
+                valveMultResults=new ArrayList<Valve>();
+            }
         }
         //get syukan
         List<Master> syukanList=new LinkedList<Master>();
