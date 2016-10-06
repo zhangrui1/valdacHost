@@ -48,17 +48,17 @@ tbody.scrollBody{
     <hr/>
     <!-- Main content -->
     <section class="content">
-        <%--<div class="row">--%>
+        <div class="row">
             <!-- collection -->
-            <%--<div class="col-md-4">--%>
-                <%--<div class="btn-group" role="group">--%>
-                    <%--<a href="/valdacHost/list/valveMult" class="btn btn-default bg-yellow active" onclick="return saveSelectedForValve()">複合検索</a>--%>
-                    <%--<a href="/valdacHost/list/valve" class="btn btn-default" onclick="return saveSelectedForValve()">弁検索</a>--%>
-                    <%--<a href="/valdacHost/list/kikiSearch" class="btn btn-default" onclick="return saveSelectedForValve()">機器検索</a>--%>
-                    <%--<a href="/valdacHost/list/buhinSearch" class="btn btn-default" onclick="return saveSelectedForValve()">部品検索</a>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-        <%--</div></br></br>--%>
+            <div class="col-md-4">
+                <div class="btn-group" role="group">
+                    <a href="/valdacHost/list/valveMult" class="btn btn-default bg-yellow active" onclick="return saveSelectedForValve()">複合検索</a>
+                    <a href="/valdacHost/list/valve" class="btn btn-default" onclick="return saveSelectedForValve()">弁検索</a>
+                    <a href="/valdacHost/list/kikiSearch" class="btn btn-default" onclick="return saveSelectedForValve()">機器検索</a>
+                    <a href="/valdacHost/list/buhinSearch" class="btn btn-default" onclick="return saveSelectedForValve()">部品検索</a>
+                </div>
+            </div>
+        </div></br></br>
 
 
         <div class="row">

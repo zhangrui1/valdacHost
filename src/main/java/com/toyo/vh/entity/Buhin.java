@@ -45,6 +45,7 @@ public class Buhin {
         setHyojunSiyou(buhinForm.getHyojunSiyou());
         setMakerRyaku(buhinForm.getMakerRyaku());
         setMaker(buhinForm.getMaker());
+        setSunpou(buhinForm.getSunpou());
         setSunpouL(buhinForm.getSunpouL());
         setSunpouW(buhinForm.getSunpouW());
         setSunpouH(buhinForm.getSunpouH());
