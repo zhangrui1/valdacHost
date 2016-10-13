@@ -275,10 +275,14 @@ public class ListController {
 
 
         //会社名をsessionから取得
-        String location=(String)session.getAttribute("locationNameSelectedForValve");
-        if(StringUtil.isEmpty(location)){
-            location=nameList.get(0);
+        ValveMult  tmpValve=(ValveMult )session.getAttribute("valveMultSearchForSeikak");
+        String location="全部会社名";
+        if(tmpValve!=null){
+            if(!StringUtil.isEmpty(tmpValve.locationName)){
+                location=tmpValve.getLocationName();
+            }
         }
+
         //valve取得
         List<Valve> valveMultResults=(List<Valve>)session.getAttribute("valveMultResultsForKikisys");
         if(CollectionUtils.isEmpty(valveMultResults)){
@@ -296,6 +300,7 @@ public class ListController {
 
         //弁検索場合は１、機器検索場合は２、部品検索場合は３,複数場合は4
         String kikiOrBenFlg="4";
+        session.setAttribute("locationNameSelectedForMultiValve",location);
         session.setAttribute("valveMultResultsForKikisys",valveMultResults);
         session.setAttribute("nameList",nameList);
         session.setAttribute("syukanList",syukanList);
