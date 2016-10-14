@@ -288,10 +288,15 @@ public class ListController {
         if(CollectionUtils.isEmpty(valveMultResults)){
             location="全部会社名";
             valveMultResults=new ArrayList<Valve>();
+            tmpValve=new ValveMult();
         }else{
-            if(!valveMultResults.get(0).getLocationName().contains(location)){
-                location="全部会社名";
-                valveMultResults=new ArrayList<Valve>();
+            if(!"admin".equals(user.department)){
+                //管理者ユーザ以外場合、弁リストの会社名とユーザの会社名が異なる場合、リセットする
+                if(!valveMultResults.get(0).getLocationName().contains(user.department)){
+                    location="全部会社名";
+                    valveMultResults=new ArrayList<Valve>();
+                    tmpValve=new ValveMult();
+                }
             }
         }
         //get syukan
@@ -300,6 +305,7 @@ public class ListController {
 
         //弁検索場合は１、機器検索場合は２、部品検索場合は３,複数場合は4
         String kikiOrBenFlg="4";
+        session.setAttribute("valveMultSearchForSeikak",tmpValve);
         session.setAttribute("locationNameSelectedForMultiValve",location);
         session.setAttribute("valveMultResultsForKikisys",valveMultResults);
         session.setAttribute("nameList",nameList);

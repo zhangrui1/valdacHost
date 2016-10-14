@@ -75,6 +75,10 @@ public class IndexController {
             List<Location> locationList =new ArrayList<Location>();
             if("admin".equals(user.getDepartment())){
                 locationList = locationService.getAllLocation();
+                //管理者場合、弁検索ページのセッションをリセット
+                session.removeAttribute("valveMultResultsForKikisys");
+                session.removeAttribute("valveMultSearchForSeikak");
+                session.removeAttribute("locationNameSelectedForMultiValve");
             }else{
                 locationList = locationService.getLocationByUserDepartment(user.getDepartment());
             }
@@ -94,6 +98,7 @@ public class IndexController {
                 koujiresult=koujiMapper.findKoujiByLocation(location);
             }
 
+
             session.setAttribute("locationNameSelectedForKouji",location);
             session.setAttribute("locationKoujiSelectedForKouji",koujiresult);
             session.setAttribute("locationKoujiNum",koujiresult.size());
@@ -112,7 +117,15 @@ public class IndexController {
      * */
     @RequestMapping(value="/logout", method=RequestMethod.GET)
     public String logout(HttpSession session){
+        User user=(User)session.getAttribute("user");
+        System.out.println("user="+user.department);
+        if("admin".equals(user.department)){
+            session.removeAttribute("valveMultResultsForKikisys");
+            session.removeAttribute("valveMultSearchForSeikak");
+            session.removeAttribute("locationNameSelectedForMultiValve");
+        }
         session.removeAttribute("user");
+
         return "login";
     }
 }
